@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TSConfig Web",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "jsx": "preserve",
+    "declaration": true,
+    "composite": true,
+    "types": ["@types/**", "@dcloudio/types"]
+  },
+  "include": [
+    "src/**/*",
+    "package.json",
+    "typings/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/__tests__/**",
+    "**/tests/**",
+    "**/*.md"
+  ]
+}

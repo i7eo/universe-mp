@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TSConfig Vitest Module",
+  "extends": "./tsconfig.web.json",
+  "compilerOptions": {
+    "types": ["node", "jsdom", "vitest/globals"],
+    "composite": true
+  },
+  "include": [
+    "**/vitest.config.*",
+    "src/**/*",
+    "package.json",
+    "typings/**/*",
+    "**/__tests__/**/*",
+    "**/tests/**/*"
+  ],
+  "exclude": ["node_modules", "**/dist", "**/*.md"]
+}

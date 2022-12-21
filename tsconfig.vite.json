@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TSConfig Vite Module",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node", "vitest"],
+    "composite": true
+  },
+  "include": [
+    "**/vite.config.*",
+    "package.json",
+    "typings/**/*"
+  ]
+}

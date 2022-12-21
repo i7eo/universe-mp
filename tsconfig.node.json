@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TSConfig Node Module",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "composite": true
+  },
+  "include": [
+    "**/scripts/**/*",
+    "scripts/**/*"
+  ],
+  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
+}
