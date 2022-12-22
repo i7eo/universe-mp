@@ -6,19 +6,8 @@
     "lib": ["ESNext", "DOM"],
     "jsx": "preserve",
     "declaration": true,
-    "composite": true,
-    "types": ["@types/**", "@dcloudio/types"]
+    "composite": true
   },
-  "include": [
-    "src/**/*",
-    "package.json",
-    "typings/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/dist",
-    "**/__tests__/**",
-    "**/tests/**",
-    "**/*.md"
-  ]
+  "include": ["src/**/*", "package.json", "typings/**/*"],
+  "exclude": ["node_modules", "**/dist", "**/__tests__/**", "**/tests/**", "**/*.md"]
 }

@@ -9,14 +9,14 @@ module.exports = {
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        ignorePseudoClasses: ["global"]
-      }
+        ignorePseudoClasses: ["global"],
+      },
     ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        ignorePseudoElements: ["v-deep"]
-      }
+        ignorePseudoElements: ["v-deep"],
+      },
     ],
     "at-rule-no-unknown": [
       true,
@@ -37,9 +37,9 @@ module.exports = {
           "at-root",
           "use",
           "forward",
-          "return"
-        ]
-      }
+          "return",
+        ],
+      },
     ],
     "no-empty-source": null,
     "string-quotes": null,
@@ -52,8 +52,8 @@ module.exports = {
     "rule-empty-line-before": [
       "always",
       {
-        ignore: ["after-comment", "first-nested"]
-      }
+        ignore: ["after-comment", "first-nested"],
+      },
     ],
     "unit-no-unknown": [true, { ignoreUnits: ["rpx"] }],
     "order/order": [
@@ -64,20 +64,20 @@ module.exports = {
         "declarations",
         {
           type: "at-rule",
-          name: "supports"
+          name: "supports",
         },
         {
           type: "at-rule",
-          name: "media"
+          name: "media",
         },
-        "rules"
+        "rules",
       ],
-      { severity: "warning" }
+      { severity: "warning" },
     ],
     "order/properties-order": [
       {
         // Must be first.
-        properties: ["all"]
+        properties: ["all"],
       },
       {
         // Position.
@@ -90,12 +90,12 @@ module.exports = {
           "right",
           "bottom",
           "left",
-          "z-index"
-        ]
+          "z-index",
+        ],
       },
       {
         // Display mode.
-        properties: ["box-sizing", "display"]
+        properties: ["box-sizing", "display"],
       },
       {
         // Flexible boxes.
@@ -106,8 +106,8 @@ module.exports = {
           "flex-flow",
           "flex-grow",
           "flex-shrink",
-          "flex-wrap"
-        ]
+          "flex-wrap",
+        ],
       },
       {
         // Grid layout.
@@ -129,12 +129,12 @@ module.exports = {
           "grid-auto-flow",
           "grid-gap",
           "grid-row-gap",
-          "grid-column-gap"
-        ]
+          "grid-column-gap",
+        ],
       },
       {
         // Gap.
-        properties: ["gap", "row-gap", "column-gap"]
+        properties: ["gap", "row-gap", "column-gap"],
       },
       {
         // Layout alignment.
@@ -147,12 +147,12 @@ module.exports = {
           "align-self",
           "justify-content",
           "justify-items",
-          "justify-self"
-        ]
+          "justify-self",
+        ],
       },
       {
         // Order.
-        properties: ["order"]
+        properties: ["order"],
       },
       {
         // Box model.
@@ -201,8 +201,8 @@ module.exports = {
           "overscroll-behavior-block",
           "clip",
           "clip-path",
-          "clear"
-        ]
+          "clear",
+        ],
       },
       {
         // Typography.
@@ -280,8 +280,8 @@ module.exports = {
           "size-adjust",
           "ascent-override",
           "descent-override",
-          "line-gap-override"
-        ]
+          "line-gap-override",
+        ],
       },
       {
         // Accessibility & Interactions.
@@ -307,8 +307,8 @@ module.exports = {
           "nav-up",
           "nav-right",
           "nav-down",
-          "nav-left"
-        ]
+          "nav-left",
+        ],
       },
       {
         // Background & Borders.
@@ -393,8 +393,8 @@ module.exports = {
           "filter:progid:DXImageTransform.Microsoft.Alpha(Opacity",
           "-ms-filter:\\'progid:DXImageTransform.Microsoft.Alpha",
           "opacity",
-          "-ms-interpolation-mode"
-        ]
+          "-ms-interpolation-mode",
+        ],
       },
       {
         // SVG Presentation Attributes.
@@ -432,8 +432,8 @@ module.exports = {
           "mask",
           "shape-rendering",
           "stop-color",
-          "stop-opacity"
-        ]
+          "stop-opacity",
+        ],
       },
       {
         // Transitions & Animation.
@@ -452,10 +452,10 @@ module.exports = {
           "animation-timing-function",
           "animation-delay",
           "animation-iteration-count",
-          "animation-direction"
-        ]
-      }
-    ]
+          "animation-direction",
+        ],
+      },
+    ],
 
     // // scss
     // 'scss/operator-no-newline-after': null,
@@ -473,17 +473,17 @@ module.exports = {
         "selector-pseudo-class-no-unknown": [
           true,
           {
-            ignorePseudoClasses: ["deep", "global"]
-          }
+            ignorePseudoClasses: ["deep", "global"],
+          },
         ],
         "selector-pseudo-element-no-unknown": [
           true,
           {
-            ignorePseudoElements: ["v-deep", "v-global", "v-slotted"]
-          }
-        ]
-      }
-    }
+            ignorePseudoElements: ["v-deep", "v-global", "v-slotted"],
+          },
+        ],
+      },
+    },
     // {
     //   files: ['*.scss', '**/*.scss'],
     //   customSyntax: 'postcss-scss',
@@ -493,5 +493,5 @@ module.exports = {
     //     'stylelint-config-recommended-vue/scss',
     //   ],
     // },
-  ]
+  ],
 };

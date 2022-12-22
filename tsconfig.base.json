@@ -16,6 +16,12 @@
     "noUnusedParameters": true,
 
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": ["vite/client", "@dcloudio/types"],
+    "typeRoots": ["node_modules/@types/", "typings"],
+    "paths": {
+      "/@/*": ["src/*"],
+      "/#/*": ["typings/*"]
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "universe-mp",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.18.0",
+  "packageManager": "pnpm@7.19.0",
   "description": "🚀 A modern, high-performance universe-mp project designed with uniapp!",
   "keywords": [
     "Vue3",
@@ -61,8 +61,9 @@
     "clean": "run-s clean:**",
     "clean:cache": "rimraf dist",
     "clean:deps": "rimraf pnpm-lock.yaml && rimraf node_modules",
-    "lint": "turbo run lint",
-    "format": "turbo run lint:prettier",
+    "lint": "run-s lint:**",
+    "lint:eslint": "TIMING=1 eslint \"*.{js,jsx,ts,tsx,md,json}\" --fix",
+    "lint:prettier": "prettier --write \"*.{js,ts,jsx,tsx,md,json}\"",
     "commit": "czg"
   },
   "dependencies": {
@@ -81,24 +82,22 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",
     "qs": "^6.11.0",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue": "^3.2.45"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "@dcloudio/types": "^3.0.17",
     "@dcloudio/uni-automator": "3.0.0-alpha-3061020221121002",
     "@dcloudio/uni-cli-shared": "3.0.0-alpha-3061020221121002",
     "@dcloudio/uni-stacktracey": "3.0.0-alpha-3061020221121002",
     "@dcloudio/vite-plugin-uni": "3.0.0-alpha-3061020221121002",
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
     "@types/jsdom": "^20.0.1",
     "@types/node": "*",
     "@types/nprogress": "^0.2.0",
     "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "@unocss/preset-rem-to-px": "0.46.4",
     "@vitest/ui": "^0.26.1",
     "@vue/test-utils": "^2.2.6",
     "czg": "^1.3.12",
@@ -132,8 +131,6 @@
     "stylelint-order": "^5.0.0",
     "tsx": "^3.11.0",
     "typescript": "^4.8.4",
-    "unocss": "0.46.4",
-    "unocss-preset-weapp": "^0.2.5",
     "vite": "3.2.4",
     "vitest": "^0.26.1",
     "vue-tsc": "^1.0.16",

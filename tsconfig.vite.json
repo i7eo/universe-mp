@@ -6,9 +6,5 @@
     "types": ["node", "vitest"],
     "composite": true
   },
-  "include": [
-    "**/vite.config.*",
-    "package.json",
-    "typings/**/*"
-  ]
+  "include": ["**/vite.config.*", "package.json", "typings/**/*"]
 }
