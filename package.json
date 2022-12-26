@@ -57,6 +57,8 @@
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "preinstall": "node ./scripts/preinstall.mjs",
     "postinstall": "simple-git-hooks",
+    "dev": "uni -p mp-lark",
+    "build": "uni build -p mp-lark",
     "test": "vitest",
     "clean": "run-s clean:**",
     "clean:cache": "rimraf dist",

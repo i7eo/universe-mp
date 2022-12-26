@@ -1,0 +1,11 @@
+@use "./constants/var.scss" as *;
+@use "./mixins/namespace.scss" as ns;
+
+// 高亮
+@include ns.b(highlight) {
+  &.api {
+    &__search-list-pager {
+      color: $color-primary;
+    }
+  }
+}

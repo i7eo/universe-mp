@@ -1,0 +1,39 @@
+@use "./constants/var.scss" as *;
+@use "./mixins/namespace.scss" as ns;
+@use "sass:map";
+
+$badge-border-radius: map.get($border-radius, "round");
+$badge-color-primary: #3351c7;
+$badge-color-success: #2cc8b2;
+$badge-color-warning: #ffac3e;
+$badge-color-error: #ff7171;
+
+// 自定义图标
+@include ns.b(icon) {
+  &-badge {
+    display: inline-block;
+    min-width: 50px;
+    min-height: 20px;
+    border-radius: $badge-border-radius $badge-border-radius $badge-border-radius 0;
+    color: $color-white;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 1px;
+
+    &--primary {
+      background-color: $badge-color-primary;
+    }
+
+    &--success {
+      background-color: $badge-color-success;
+    }
+
+    &--warning {
+      background-color: $badge-color-warning;
+    }
+
+    &--error {
+      background-color: $badge-color-error;
+    }
+  }
+}
