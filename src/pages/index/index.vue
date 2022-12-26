@@ -18,8 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { API__USER_ENCRYPT } from "/@/apis/user";
+import { onMounted, ref } from "vue";
+
 const title = ref("Hello");
+
+onMounted(async () => {
+  const res = await API__USER_ENCRYPT();
+  console.log(res);
+});
 </script>
 
 <style lang="scss">

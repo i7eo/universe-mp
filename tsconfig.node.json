@@ -6,6 +6,12 @@
     "types": ["node"],
     "composite": true
   },
-  "include": ["scripts/**/*"],
+  "include": [
+    "**/scripts/**/*",
+    "scripts/**/*",
+    "build/**/*",
+    "src/enums/**/*",
+    "typings/**/*"
+  ],
   "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }
