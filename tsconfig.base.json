@@ -18,7 +18,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "types": ["vite/client", "@dcloudio/types"],
-    "typeRoots": ["node_modules/@types/", "typings"],
+    "typeRoots": ["node_modules/@types", "typings"],
     "paths": {
       "/@/*": ["src/*"],
       "/#/*": ["typings/*"]

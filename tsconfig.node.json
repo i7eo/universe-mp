@@ -6,6 +6,6 @@
     "types": ["node"],
     "composite": true
   },
-  "include": ["**/scripts/**/*", "scripts/**/*"],
+  "include": ["scripts/**/*"],
   "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }
