@@ -1,4 +1,3 @@
-import { isFunction } from "../../types";
 import type { CreateAxiosOptions } from "/#/axios";
 
 const getResponse = (res: any, config: any) => {
@@ -20,13 +19,9 @@ export function uniAdapter<T = any>(options: CreateAxiosOptions) {
     throw new Error("please use this in uni-app project!");
   }
 
-  const { url, data, params, timeout, headers, transform } = options;
-
-  const { requestCatchHook, transformRequestHook } = transform || {};
+  const { data, params, headers } = options;
 
   return new Promise((resolve, reject) => {
-    // const { timeout, headers } = options;
-    // const { url, data, params } = conf;
     const uniConfig = {
       ...options,
       header: headers,
@@ -43,26 +38,10 @@ export function uniAdapter<T = any>(options: CreateAxiosOptions) {
       ...uniConfig,
       success(_res) {
         const res = getResponse(_res, options);
-        // if (transformRequestHook && isFunction(transformRequestHook)) {
-        //   try {
-        //     const ret = transformRequestHook(res, options.requestOptions!);
-        //     resolve(ret);
-        //   } catch (err) {
-        //     reject(err || new Error("request error!"));
-        //   }
-        //   return;
-        // }
         resolve(res as unknown as Promise<T>);
       },
       fail(_res) {
         const res = getResponse(_res, options);
-        // if (requestCatchHook && isFunction(requestCatchHook)) {
-        //   reject(requestCatchHook(e, options.requestOptions!));
-        //   return;
-        // }
-        // // if (axios.isAxiosError(e)) {
-        // //   // rewrite error message from axios in here
-        // // }
         reject(res);
       },
     });
