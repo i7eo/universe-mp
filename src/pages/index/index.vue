@@ -3,29 +3,23 @@
     <image class="logo" src="/@/assets/images/logo.png" />
     <view class="text-area">
       <text class="title">{{ title }}i7eo123213</text>
-
-      <view class="button-sp-area">
-        <button type="primary">页面主操作 Normal</button>
-        <button type="primary" loading="true">页面主操作 Loading</button>
-        <button type="primary" disabled="true">页面主操作 Disabled</button>
-        <button type="default">页面次要操作 Normal</button>
-        <button type="default" disabled="true">页面次要操作 Disabled</button>
-        <button type="warn">警告类操作 Normal</button>
-        <button type="warn" disabled="true">警告类操作 Disabled</button>
-      </view>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import { API__USER_ENCRYPT } from "/@/apis/user";
 import { onMounted, ref } from "vue";
+import { useUserStore } from "/@/store/user";
 
 const title = ref("Hello");
 
-onMounted(async () => {
-  const res = await API__USER_ENCRYPT();
-  console.log(res);
+const userStore = useUserStore();
+onMounted(() => {
+  userStore.confirmLoginOut();
+  // uni.showModal({
+  //   title: "错误提示",
+  //   content: "test",
+  // });
 });
 </script>
 

@@ -240,11 +240,13 @@ export class VAxios {
       };
 
       return new Promise((resolve, reject) => {
-        const { url, headers, data, params } = conf;
+        const { timeout, headers } = this.options;
+        const { url, data, params } = conf;
         const uniConfig = {
           ...conf,
-          url: url!,
+          url,
           header: headers,
+          timeout,
         } as any;
 
         if (data || params) {

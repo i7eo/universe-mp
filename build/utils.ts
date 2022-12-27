@@ -91,3 +91,83 @@ export function getEnvConfig(match = "VITE_GLOB_", confFiles = getConfFiles()) {
 export function getRootPath(...dir: string[]) {
   return path.resolve(process.cwd(), ...dir);
 }
+
+/**
+ * @description 获取 uniapp 当前编译平台，详情见 https://uniapp.dcloud.net.cn/tutorial/platform.html
+ */
+export function getUniPlatform() {
+  const platform = {
+    main: "WEB",
+    detail: "WEB",
+  };
+
+  // #ifdef APP-PLUS || APP-PLUS-NVUE || APP-NVUE || APP-ANDROID || APP-IOS
+  platform.main = "APP";
+  platform.detail = "APP";
+  // #endif
+  // #ifdef APP-PLUS
+  platform.detail = "APP-PLUS";
+  // #endif
+  // #ifdef APP-PLUS-NVUE
+  platform.detail = "APP-PLUS-NVUE";
+  // #endif
+  // #ifdef APP-NVUE
+  platform.detail = "APP-NVUE";
+  // #endif
+  // #ifdef APP-ANDROID
+  platform.detail = "APP-ANDROID";
+  // #endif
+  // #ifdef APP-IOS
+  platform.detail = "APP-IOS";
+  // #endif
+
+  // #ifdef H5
+  platform.main = "H5";
+  platform.detail = "H5";
+  // #endif
+
+  // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-LARK || MP-QQ || MP-KUAISHOU || MP-JD || MP-360 || MP
+  platform.main = "MP";
+  platform.detail = "MP";
+  // #endif
+  // #ifdef MP-WEIXIN
+  platform.detail = "MP-WEIXIN";
+  // #endif
+  // #ifdef MP-ALIPAY
+  platform.detail = "MP-ALIPAY";
+  // #endif
+  // #ifdef MP-BAIDU
+  platform.detail = "MP-BAIDU";
+  // #endif
+  // #ifdef MP-TOUTIAO
+  platform.detail = "MP-TOUTIAO";
+  // #endif
+  // #ifdef MP-LARK
+  platform.detail = "MP-LARK";
+  // #endif
+  // #ifdef MP-QQ
+  platform.detail = "MP-QQ";
+  // #endif
+  // #ifdef MP-KUAISHOU
+  platform.detail = "MP-KUAISHOU";
+  // #endif
+  // #ifdef MP-JD
+  platform.detail = "MP-JD";
+  // #endif
+  // #ifdef MP-360
+  platform.detail = "MP-360";
+  // #endif
+
+  // #ifdef QUICKAPP-WEBVIEW-UNION || QUICKAPP-WEBVIEW-HUAWEI || QUICKAPP-WEBVIEW
+  platform.main = "QUICKAPP-WEBVIEW";
+  platform.detail = "QUICKAPP-WEBVIEW";
+  // #endif
+  // #ifdef QUICKAPP-WEBVIEW-UNION
+  platform.detail = "QUICKAPP-WEBVIEW-UNION";
+  // #endif
+  // #ifdef QUICKAPP-WEBVIEW-HUAWEI
+  platform.detail = "QUICKAPP-WEBVIEW-HUAWEI";
+  // #endif
+
+  return platform;
+}

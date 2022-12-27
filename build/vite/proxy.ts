@@ -25,6 +25,7 @@ export function createProxy(list: ProxyList = []) {
       target,
       changeOrigin: true,
       ws: true,
+      // eslint-disable-next-line no-useless-escape
       rewrite: (path) => path.replace(new RegExp(`^${prefix}`), ""),
       // https is require secure=false
       ...(isHttps ? { secure: false } : {}),

@@ -1,19 +1,16 @@
-// import { useMessage } from "tav-ui";
 import type { ErrorMessageMode } from "/#/axios";
-// import { SessionTimeoutProcessingEnum } from "/@/enums/appEnum";
-// import projectSetting from "/@/settings/projectSetting";
-// import { useUserStoreWithOut } from "/@/subtree/store/user";
+import { SessionTimeoutProcessingEnum } from "/@/enums/app";
+import appSetting from "/@/settings/app";
+import { useUserStore } from "/@/store/user";
 
-// const { createMessage, createErrorModal } = useMessage();
-// const error = createMessage.error!;
-// const stp = projectSetting.sessionTimeoutProcessing;
+const stp = appSetting.sessionTimeoutProcessing;
 
 export function checkStatus(
   status: number,
   msg: string,
   errorMessageMode: ErrorMessageMode = "message"
 ): void {
-  // const userStore = useUserStoreWithOut();
+  const userStore = useUserStore();
   let errMessage = "";
   let message5001 = "";
 
@@ -25,13 +22,13 @@ export function checkStatus(
     // Jump to the login page if not logged in, and carry the path of the current page
     // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401 || 4001:
-      // userStore.setToken(undefined);
+      userStore.setToken(undefined);
       errMessage = msg || "已退出，请重新登陆!" || "用户没有权限（令牌、用户名、密码错误）!";
-      // if (stp === SessionTimeoutProcessingEnum.PAGE_COVERAGE) {
-      //   userStore.setSessionTimeout(true);
-      // } else {
-      //   userStore.logout(true, true);
-      // }
+      if (stp === SessionTimeoutProcessingEnum.PAGE_COVERAGE) {
+        userStore.setSessionTimeout(true);
+      } else {
+        userStore.logout(true, true);
+      }
       break;
     case 403:
       errMessage = msg || "用户没有得到授权!" || "用户得到授权，但是访问是被禁止的。!";
@@ -73,18 +70,25 @@ export function checkStatus(
     default:
       errMessage = "请求失败,系统异常!";
   }
-  // if (errMessage) {
-  //   if (errorMessageMode === "modal") {
-  //     createErrorModal({ title: "错误提示", content: errMessage });
-  //   } else if (errorMessageMode === "message") {
-  //     error({ content: errMessage, key: `global_error_message_status_${status}` });
-  //   }
-  // }
 
-  // if (message5001) {
-  //   createMessage.warning(message5001);
-  // }
+  if (errMessage) {
+    if (errorMessageMode === "modal") {
+      uni.showModal({
+        title: "错误提示",
+        content: errMessage,
+      });
+    } else if (errorMessageMode === "message") {
+      uni.showToast({
+        title: errMessage,
+        icon: "error",
+      });
+    }
+  }
 
-  console.log(errMessage);
-  console.log(message5001, errorMessageMode);
+  if (message5001) {
+    uni.showToast({
+      title: message5001,
+      icon: "error",
+    });
+  }
 }

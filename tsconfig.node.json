@@ -13,5 +13,5 @@
     "src/enums/**/*",
     "typings/**/*"
   ],
-  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
+  "exclude": ["node_modules", "**/__tests__/**", "**/tests/**", "**/dist", "**/*.md"]
 }

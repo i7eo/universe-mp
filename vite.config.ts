@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { loadEnv } from "vite";
 import uni from "@dcloudio/vite-plugin-uni";
 import { wrapperEnv } from "./build/utils";
-import { createProxy } from "./build/vite/proxy";
+// import { createProxy } from "./build/vite/proxy";
 import pkg from "./package.json";
 import type { ConfigEnv, UserConfig } from "vite";
 
@@ -26,7 +26,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY } = viteEnv;
-  console.log(`Is build: ${isBuild}`);
+
+  console.log(`env is build: ${isBuild}`);
+  console.log(`vite proxy: ${JSON.stringify(VITE_PROXY)}`);
 
   return {
     base: VITE_PUBLIC_PATH,
@@ -47,8 +49,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       // Listening on all local IPs
       host: true,
       port: VITE_PORT,
-      // Load proxy configuration from .env
-      proxy: createProxy(VITE_PROXY),
+      // // Load proxy configuration from .env
+      // proxy: createProxy(VITE_PROXY),
     },
     plugins: [uni()],
     define: {
