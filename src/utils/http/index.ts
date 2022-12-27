@@ -7,8 +7,9 @@ import { formatRequestDate, joinTimestamp } from "./axios/helper";
 import { deepMerge, setObjToUrlParams } from "../basic";
 import { useGlobSetting } from "/@/hooks/setting";
 // import { useErrorLogStoreWithOut } from "/@/subtree/store/errorLog";
-// import { useUserStoreWithOut } from "/@/subtree/store/user";
-// import { useSSOStoreWithOut } from "/@/subtree/store/sso";
+import { useUserStore } from "/@/store/user";
+import { useSSOStore } from "/@/store/sso";
+import { uniAdapter } from "./axios/adapter";
 import type { AxiosTransform, CreateAxiosOptions, RequestOptions, Result } from "/#/axios";
 import type { AxiosResponse } from "axios";
 
@@ -56,7 +57,7 @@ const transform: AxiosTransform = {
     // switch (code) {
     //   case ResultEnum.TIMEOUT:
     //     timeoutMsg = "登录超时,请重新登录!";
-    //     const userStore = useUserStoreWithOut();
+    //     const userStore = useUserStore();
     //     userStore.setToken(undefined);
     //     userStore.logout(true);
     //     break;
@@ -147,27 +148,26 @@ const transform: AxiosTransform = {
    * @description: 请求拦截器处理
    */
   requestInterceptors: (config, options) => {
-    console.log(options);
     // 请求之前处理config
-    // const ssoStore = useSSOStoreWithOut();
-    // const token = ssoStore.getLsToken();
-    // // 某些场景下需要修改appId 现有业务是在字典这块
-    // if (config.data && config.data.changeAppId !== undefined) {
-    //   (config as Record<string, any>).headers.ai = config.data.changeAppId;
-    // }
-    // if (token && (config as Record<string, any>)?.requestOptions?.withToken !== false) {
-    //   // 手动把token（at、rd）插入请求头
-    //   const { at = "", rd = "" } = token;
-    //   if (at && rd) {
-    //     (config as Record<string, any>).headers.at = at;
-    //     (config as Record<string, any>).headers.rd = rd;
-    //   }
+    const ssoStore = useSSOStore();
+    const token = ssoStore.getLsToken();
+    // 某些场景下需要修改appId 现有业务是在字典这块
+    if (config.data && config.data.changeAppId !== undefined) {
+      (config as Record<string, any>).headers.ai = config.data.changeAppId;
+    }
+    if (token && (config as Record<string, any>)?.requestOptions?.withToken !== false) {
+      // 手动把token（at、rd）插入请求头
+      const { at = "", rd = "" } = token;
+      if (at && rd) {
+        (config as Record<string, any>).headers.at = at;
+        (config as Record<string, any>).headers.rd = rd;
+      }
 
-    //   // // 兼容 jwt token 格式，这里只是把 JSON.stringify 后的 token（at、rd）简单设置
-    //   // (config as Record<string, any>).headers.Authorization = options.authenticationScheme
-    //   //   ? `${options.authenticationScheme} ${token}`
-    //   //   : token;
-    // }
+      // // 兼容 jwt token 格式，这里只是把 JSON.stringify 后的 token（at、rd）简单设置
+      // (config as Record<string, any>).headers.Authorization = options.authenticationScheme
+      //   ? `${options.authenticationScheme} ${token}`
+      //   : token;
+    }
     return config;
   },
 
@@ -176,24 +176,24 @@ const transform: AxiosTransform = {
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
     // 从响应头中动态取出 at、rd 存储
-    // const {
-    //   headers: { at = "", rd = "" },
-    // } = res;
-    // const userStore = useUserStoreWithOut();
-    // const ssoStore = useSSOStoreWithOut();
-    // const prevToken = ssoStore.getLsToken() ?? "";
-    // const currentToken =
-    //   at && rd
-    //     ? JSON.stringify({
-    //         at,
-    //         rd,
-    //       })
-    //     : "";
-    // // 当 at rd 变化时再更新 token
-    // if (currentToken && currentToken !== JSON.stringify(prevToken)) {
-    //   userStore.setToken(currentToken);
-    //   ssoStore.setLsToken(currentToken);
-    // }
+    const {
+      headers: { at = "", rd = "" },
+    } = res;
+    const userStore = useUserStore();
+    const ssoStore = useSSOStore();
+    const prevToken = ssoStore.getLsToken() ?? "";
+    const currentToken =
+      at && rd
+        ? JSON.stringify({
+            at,
+            rd,
+          })
+        : "";
+    // 当 at rd 变化时再更新 token
+    if (currentToken && currentToken !== JSON.stringify(prevToken)) {
+      userStore.setToken(currentToken);
+      ssoStore.setLsToken(currentToken);
+    }
 
     return res;
   },
@@ -219,11 +219,17 @@ const transform: AxiosTransform = {
       }
 
       if (errMessage) {
-        // if (errorMessageMode === "modal") {
-        //   createErrorModal({ title: "错误提示", content: errMessage });
-        // } else if (errorMessageMode === "message") {
-        //   createMessage.error(errMessage);
-        // }
+        if (errorMessageMode === "modal") {
+          uni.showModal({
+            title: "错误提示",
+            content: errMessage,
+          });
+        } else if (errorMessageMode === "message") {
+          uni.showToast({
+            title: errMessage,
+            icon: "error",
+          });
+        }
         return Promise.reject(error);
       }
     } catch (error) {
@@ -231,8 +237,8 @@ const transform: AxiosTransform = {
     }
 
     const is401Request =
-      response.config.url?.includes("current/user/getInfoRefresh") &&
-      Number(response.status) === 401;
+      response?.config?.url?.includes("current/user/getInfoRefresh") &&
+      Number(response?.status) === 401;
     if (!is401Request) {
       checkStatus(error?.response?.status, msg, errorMessageMode);
     }
@@ -251,6 +257,9 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         timeout: TimeoutEnum.TIMEOUT,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
+
+        // 兼容 uniapp 内置的请求逻辑
+        adapter: uniAdapter,
 
         headers: { "Content-Type": ContentTypeEnum.JSON, ai: appId },
         // 如果是form-data格式

@@ -198,92 +198,31 @@ export class VAxios {
 
     conf = this.supportFormData(conf);
 
-    if (!uni) {
-      return new Promise((resolve, reject) => {
-        this.axiosInstance
-          .request<any, AxiosResponse<Result>>(conf)
-          .then((res: AxiosResponse<Result>) => {
-            if (transformRequestHook && isFunction(transformRequestHook)) {
-              try {
-                const ret = transformRequestHook(res, opt);
-                resolve(ret);
-              } catch (err) {
-                reject(err || new Error("request error!"));
-              }
-              return;
+    return new Promise((resolve, reject) => {
+      this.axiosInstance
+        .request<any, AxiosResponse<Result>>(conf)
+        .then((res: AxiosResponse<Result>) => {
+          if (transformRequestHook && isFunction(transformRequestHook)) {
+            try {
+              const ret = transformRequestHook(res, opt);
+              resolve(ret);
+            } catch (err) {
+              reject(err || new Error("request error!"));
             }
-            resolve(res as unknown as Promise<T>);
-          })
-          .catch((e: Error | AxiosError) => {
-            if (requestCatchHook && isFunction(requestCatchHook)) {
-              reject(requestCatchHook(e, opt));
-              return;
-            }
-            if (axios.isAxiosError(e)) {
-              // rewrite error message from axios in here
-            }
-            reject(e);
-          });
-      });
-    } else {
-      const getResponse = (res: any, config: any) => {
-        const { statusCode, errMsg } = res;
-        const response = {
-          ...res,
-          status: statusCode,
-          statusText: errMsg,
-          config,
-          request: null,
-        };
-
-        return response;
-      };
-
-      return new Promise((resolve, reject) => {
-        const { timeout, headers } = this.options;
-        const { url, data, params } = conf;
-        const uniConfig = {
-          ...conf,
-          url,
-          header: headers,
-          timeout,
-        } as any;
-
-        if (data || params) {
-          try {
-            uniConfig.data = JSON.parse(data || params);
-          } catch (e) {
-            uniConfig.data = data || params;
+            return;
           }
-        }
-        uni.request({
-          ...uniConfig,
-          success(_res) {
-            const res = getResponse(_res, config);
-            if (transformRequestHook && isFunction(transformRequestHook)) {
-              try {
-                const ret = transformRequestHook(res, opt);
-                resolve(ret);
-              } catch (err) {
-                reject(err || new Error("request error!"));
-              }
-              return;
-            }
-            resolve(res as unknown as Promise<T>);
-          },
-          fail(res) {
-            const e = getResponse(res, config);
-            if (requestCatchHook && isFunction(requestCatchHook)) {
-              reject(requestCatchHook(e, opt));
-              return;
-            }
-            if (axios.isAxiosError(e)) {
-              // rewrite error message from axios in here
-            }
-            reject(e);
-          },
+          resolve(res as unknown as Promise<T>);
+        })
+        .catch((e: Error | AxiosError) => {
+          if (requestCatchHook && isFunction(requestCatchHook)) {
+            reject(requestCatchHook(e, opt));
+            return;
+          }
+          if (axios.isAxiosError(e)) {
+            // rewrite error message from axios in here
+          }
+          reject(e);
         });
-      });
-    }
+    });
   }
 }

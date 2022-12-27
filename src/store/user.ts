@@ -184,6 +184,7 @@ export const useUserStore = defineStore({
         const { goHome = true, mode, ...loginParams } = params;
         // mormal mode
         const { data } = await API__USER_ENCRYPT();
+        console.log(123);
         const encryptPassword = encryptParma(params.password, data!.publicKey!); // 加密密码
         const { success: loginSuccess } = await API__USER_LOGIN(
           { keyId: data!.keyId!, phone: loginParams.phone, password: encryptPassword },
