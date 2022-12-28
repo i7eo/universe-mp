@@ -9,10 +9,10 @@
   "include": [
     "**/vitest.config.*",
     "src/**/*",
-    "package.json",
     "typings/**/*",
     "**/__tests__/**/*",
-    "**/tests/**/*"
+    "**/tests/**/*",
+    "package.json",
   ],
   "exclude": ["node_modules", "**/dist", "**/*.md"]
 }

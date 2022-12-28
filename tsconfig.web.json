@@ -8,6 +8,6 @@
     "declaration": true,
     "composite": true
   },
-  "include": ["src/**/*", "package.json", "typings/**/*"],
+  "include": ["src/**/*", "typings/**/*", "package.json", "src/*.json"],
   "exclude": ["node_modules", "**/dist", "**/__tests__/**", "**/tests/**", "**/*.md"]
 }

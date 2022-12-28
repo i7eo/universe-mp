@@ -1,16 +1,150 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+  "pages": [
+    {
+      "path": "pages/dashboard/workbench/index",
+      "style": {
+        "navigationBarTitleText": "工作台"
+      }
+    },
+    {
+      "path": "pages/dashboard/notify/index",
+      "style": {
+        "navigationBarTitleText": "通知中心"
+      }
+    },
+    {
+      "path": "pages/sys/exception/index",
+      "style": {
+        "navigationBarTitleText": "错误"
+      },
+      "meta": {
+        "ignoreAuth": true
+      }
+    },
+    {
+      "path": "pages/sys/notFound/index",
+      "style": {
+        "navigationBarTitleText": "资源不存在"
+      },
+      "meta": {
+        "ignoreAuth": true
+      }
+    },
+    {
+      "path": "pages/system/log/index",
+      "style": {
+        "navigationBarTitleText": "日志中心"
+      }
+    },
+    {
+      "path": "pages/system/role/index",
+      "style": {
+        "navigationBarTitleText": "角色中心"
+      }
+    },
+    {
+      "path": "pages/system/user/index",
+      "style": {
+        "navigationBarTitleText": "用户中心"
+      }
+    },
+    {
+      "path": "pages/user/login/index",
+      "style": {
+        "navigationBarTitleText": "用户登录"
+      },
+      "meta": {
+        "ignoreAuth": true
+      }
+    },
+    {
+      "path": "pages/user/password/forget",
+      "style": {
+        "navigationBarTitleText": "忘记密码"
+      }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "apps/invest",
+      "pages": [
+        {
+          "path": "dashboard/index",
+          "style": {
+            "navigationBarTitleText": "投管-工作台"
+          }
+        },
+        {
+          "path": "company/index",
+          "style": {
+            "navigationBarTitleText": "投管-公司管理"
+          }
+        },
+        {
+          "path": "project/index",
+          "style": {
+            "navigationBarTitleText": "投管-项目管理"
+          }
+        }
+      ]
+    },
+    {
+      "root": "apps/poe",
+      "pages": [
+        {
+          "path": "dashboard/index",
+          "style": {
+            "navigationBarTitleText": "科服-工作台"
+          }
+        },
+        {
+          "path": "brand/index",
+          "style": {
+            "navigationBarTitleText": "科服-品宣管理"
+          }
+        },
+        {
+          "path": "consult/index",
+          "style": {
+            "navigationBarTitleText": "科服-政策咨询管理"
+          }
+        }
+      ]
+    }
+  ],
+  "preloadRule": {
+    "apps/invest/dashboard/index": {
+      "network": "all",
+      "packages": ["apps/invest"]
+    },
+    "apps/poe/dashboard/index": {
+      "network": "all",
+      "packages": ["apps/poe"]
+    }
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "海星云 App",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#474747",
+    "selectedColor": "#9BC6FC",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/dashboard/workbench/index",
+        "text": "工作台"
+      },
+			{
+        "pagePath": "apps/invest/dashboard/index",
+        "text": "投管"
+      },
+			{
+        "pagePath": "apps/poe/dashboard/index",
+        "text": "科服"
+      }
+    ]
+  }
 }

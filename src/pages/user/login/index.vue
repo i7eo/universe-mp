@@ -1,10 +1,5 @@
 <template>
   <view class="content">
-    <image class="logo" src="/@/assets/images/logo.png" />
-    <view class="text-area">
-      <text class="title">Hello {{ username }} </text>
-    </view>
-
     <view class="container">
       <uni-section title="表单校验" type="line">
         <view class="example">
@@ -25,15 +20,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, toRefs, unref } from "vue";
+import { defineComponent, reactive, ref, toRefs, unref } from "vue";
 import { useUserStore } from "/@/store/user";
 
 export default defineComponent({
+  name: "UserLogin",
   setup() {
     const valiFormRef = ref<any>(null);
 
     const state = reactive({
-      username: "i7eo",
       rules: {
         phone: {
           rules: [
